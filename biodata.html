@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Panchani Vatsal Jaysukhbhai - Biodata</title>
+
+  <!-- Animate.css + WOW.js -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #dbe2ec;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 12px;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      max-width: 430px;  /* fixed mobile width even on desktop */
+    }
+
+    .card {
+      background: #f9fafb;
+      border-radius: 26px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.05);
+    }
+
+    /* HERO / MAIN PHOTO */
+    .hero {
+      padding: 18px 18px 0;
+      background: #1f2937;
+      border-top-left-radius: 26px;
+      border-top-right-radius: 26px;
+    }
+
+    .hero-frame {
+      background: #020617;
+      border-radius: 22px;
+      border: 2px solid #111827;
+      overflow: hidden;
+    }
+
+    .hero-frame img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .content {
+      padding: 16px 18px 18px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+
+    .name {
+      font-size: 1.35rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #111827;
+    }
+
+    .role {
+      font-size: 0.86rem;
+      color: #9ca3af;
+      margin-top: 6px;
+    }
+
+    .role span {
+      display: block;
+    }
+
+    .section {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .section-title {
+      font-size: 0.8rem;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .label {
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .value {
+      text-align: right;
+      color: #111827;
+    }
+
+    .para {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #111827;
+    }
+
+    .subtext {
+      font-size: 0.82rem;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .address {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      font-size: 0.78rem;
+      color: #3730a3;
+      margin-top: 4px;
+    }
+
+    .chip span {
+      font-weight: 600;
+      margin-right: 4px;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+
+    /* MORE PHOTOS – CARD DESIGN */
+    .photo-grid {
+      display: flex;
+      gap: 10px;
+    }
+
+    .photo-card {
+      flex: 1;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.18);
+      padding: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .photo-card img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
+    }
+
+    /* FULLSCREEN LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 10px;
+    }
+
+    .lightbox img {
+      width: 100%;
+      max-width: 520px;
+      border-radius: 16px;
+      object-fit: contain;
+      animation: zoomIn 0.25s ease;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 14px;
+      right: 16px;
+      color: #f9fafb;
+      font-size: 1.7rem;
+      font-weight: 500;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .content {
+        padding: 14px 14px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <main class="card">
+
+    <!-- MAIN PHOTO -->
+    <section class="hero wow animate__animated animate__fadeInDown">
+      <div class="hero-frame">
+        <!-- main image -->
+        <img src="https://lh3.googleusercontent.com/pw/AP1GczNXpQOjIRYBIHaso1NqjFo0Vv5EvReLCCJov5IqccmRctfELY3xsvVLBGbwND8pSl_L4fHLeVSMOHUcmebNLhyYekBIH55GCmIjN4ylClW_Ysc8olp2X0v_Oxkt9gdeUytkXlhzEqRZsI9zFTVPJfN9GA=w651-h869-s-no-gm?authuser=0" alt="Panchani Vatsal Jaysukhbhai">
+      </div>
+    </section>
+
+    <!-- TEXT CONTENT -->
+    <section class="content">
+
+      <!-- NAME / ROLE -->
+      <header class="wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+        <div class="eyebrow">Biodata</div>
+        <div class="name">Panchani Vatsal<br>Jaysukhbhai</div>
+        <div class="role">
+          <span>Web Developer &amp; Social Media Manager</span>
+          <span>IT Sector, Bangalore</span>
+        </div>
+      </header>
+
+      <!-- PERSONAL DETAILS -->
+      <section class="section wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+        <div class="section-title">Personal Details</div>
+        <div class="info-row">
+          <div class="label">Date of Birth</div>
+          <div class="value">30-10-2004</div>
+        </div>
+        <div class="info-row">
+          <div class="label">Height &amp; Weight</div>
+          <div class="value">6 ft, 55 kg</div>
+        </div>
+        <div class="info-row">
+          <div class="label">Mobile</div>
+          <div class="value">74870 06211</div>
+        </div>
+      </section>
+
+      <!-- EDUCATION -->
+      <section class="section wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+        <div class="section-title">Education</div>
+        <p class="para">
+          <span class="label">Highest Qualification:</span>
+          BCA (Bachelor of Computer Applications).
+        </p>
+      </section>
+
+      <!-- FAMILY -->
+      <section class="section wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+        <div class="section-title">Family Details</div>
+
+        <div class="info-row">
+          <div class="label">Father</div>
+          <div class="value">Jaysukhbhai Kalubhai Panchani</div>
+        </div>
+        <p class="subtext">
+          Profession: Embroidery business, New GIDC, Katargam.
+        </p>
+
+        <div class="info-row" style="margin-top:6px;">
+          <div class="label">Mother</div>
+          <div class="value">Chandrikaben Jaysukhbhai Panchani</div>
+        </div>
+
+        <div class="info-row">
+          <div class="label">Sibling</div>
+          <div class="value">Hasti Jaysukhbhai Panchani</div>
+        </div>
+      </section>
+
+      <!-- MATERNAL -->
+      <section class="section wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+        <div class="section-title">Maternal Relatives</div>
+        <p class="para">
+          Hareshbhai Manubhai Suvagiya<br>
+          Kiritbhai Manubhai Suvagiya
+        </p>
+        <p class="subtext">
+          Maternal native place: Limbadiya, Gadhada, Botad.
+        </p>
+      </section>
+
+      <!-- NATIVE PLACE -->
+      <section class="section wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+        <div class="section-title">Native Place</div>
+        <p class="para">
+          Fachariya, Gariyadhar, Bhavnagar.
+        </p>
+        <div class="chip">
+          <span>Origin</span> Gujarat, India
+        </div>
+      </section>
+
+      <!-- ADDRESSES -->
+      <section class="section wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+        <div class="section-title">Addresses</div>
+        <p class="address">
+          <span class="label">Permanent:</span><br>
+          A-203 Jay Ambe Residency,<br>
+          B/H Anand Vatika Resi.,<br>
+          Sudama Chowk, Mota Varachha,<br>
+          Surat, Gujarat.
+        </p>
+        <p class="address">
+          <span class="label">Current:</span><br>
+          Shree Swaminarayan Gurukul International School,<br>
+          Mysore Road,<br>
+          Bengaluru, Karnataka.
+        </p>
+      </section>
+
+      <!-- MORE PHOTOS (CARDS + FULLSCREEN) -->
+      <section class="section wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+        <div class="section-title">More Photos</div>
+
+        <div class="photo-grid">
+          <div class="photo-card">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczNXpQOjIRYBIHaso1NqjFo0Vv5EvReLCCJov5IqccmRctfELY3xsvVLBGbwND8pSl_L4fHLeVSMOHUcmebNLhyYekBIH55GCmIjN4ylClW_Ysc8olp2X0v_Oxkt9gdeUytkXlhzEqRZsI9zFTVPJfN9GA=w651-h869-s-no-gm?authuser=0" alt="Vatsal photo 1" onclick="openLightbox(this.src)">
+          </div>
+          <div class="photo-card">
+            <img src="vatsal-2.jpg" alt="Vatsal photo 2" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+</div>
+
+<!-- FULLSCREEN LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Full view">
+</div>
+
+<script>
+  new WOW().init();
+
+  function openLightbox(src) {
+    const box = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    img.src = src;
+    box.style.display = 'flex';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+  }
+</script>
+</body>
+</html>
