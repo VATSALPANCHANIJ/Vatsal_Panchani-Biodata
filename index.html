@@ -198,12 +198,11 @@
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0, 0, 0, 0.9);
       display: none;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       z-index: 9999;
-      padding: 10px;
     }
 
     .lightbox img {
@@ -215,19 +214,63 @@
     }
 
     .lightbox-close {
-      position: fixed;
-      top: 14px;
-      right: 16px;
-      color: #f9fafb;
-      font-size: 1.7rem;
-      font-weight: 500;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 40px;
+      color: white;
       cursor: pointer;
       z-index: 10000;
     }
 
+    #lightbox-img {
+      max-width: 90%;
+      max-height: 90%;
+      transition: transform 0.1s ease-out;
+      touch-action: none;
+      /* important for pinch zoom */
+    }
+
+    .lightbox-controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+
+    .zoom-btn,
+    .download-btn {
+      background: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .zoom-btn:hover,
+    .download-btn:hover {
+      background: #f0f0f0;
+    }
+
+    #lightbox-img {
+      max-width: 90%;
+      max-height: 90%;
+      transition: transform 0.2s ease;
+    }
+
     @keyframes zoomIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     @media (max-width: 480px) {
@@ -386,13 +429,12 @@
           <img id="lightbox-img" src="" alt="Full view">
         </div>
 
-        <section class="section wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+       <section class="section wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
           <div class="section-title">More Photos</div>
-
           <div class="photo-grid">
             <div class="photo-card">
               <img
-                src="https://lh3.googleusercontent.com/pw/AP1GczNXpQOjIRYBIHaso1NqjFo0Vv5EvReLCCJov5IqccmRctfELY3xsvVLBGbwND8pSl_L4fHLeVSMOHUcmebNLhyYekBIH55GCmIjN4ylClW_Ysc8olp2X0v_Oxkt9gdeUytkXlhzEqRZsI9zFTVPJfN9GA=w651-h869-s-no-gm?authuser=0"
+                src="https://lh3.googleusercontent.com/pw/AP1GczM57mhG_XEgOdpRv3B8nv4gtWptamV5Sr5_50TkY8xeH0VJofqs8HCBVrq-x-IKu9oBeTaplbf0k93q1fFwMxLQh5qXxMaEzpniBlnbZnoc4XYNmZM30qznIGlJIZovi3oPA3XAie7HFlTbG7PiufUwwQ=w651-h869-s-no-gm?authuser=0"
                 alt="Vatsal photo 1" onclick="openLightbox(this.src)">
             </div>
             <div class="photo-card">
@@ -416,40 +458,73 @@
 <script>
     new WOW().init();
 
-    let zoomLevel = 1;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    let scale = 1;
+    let lastScale = 1;
+    let startDistance = 0;
 
     function openLightbox(src) {
-      zoomLevel = 1;
-      const box = document.getElementById('lightbox');
-      const img = document.getElementById('lightbox-img');
-      img.src = src;
-      img.style.transform = "scale(1)";
+      scale = 1;
+      lastScale = 1;
+      startDistance = 0;
 
-      document.getElementById('downloadBtn').href = src;
-
-      box.style.display = 'flex';
+      lightboxImg.src = src;
+      lightboxImg.style.transform = 'scale(1)';
+      lightbox.style.display = 'flex';
     }
 
-    function closeLightbox(event) {
-      if (event.target.id === "lightbox" || event.target.classList.contains("lightbox-close")) {
-        document.getElementById('lightbox').style.display = 'none';
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+
+    // --------- PINCH ZOOM (MOBILE) ---------
+    lightboxImg.addEventListener('touchstart', function (e) {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        startDistance = getDistance(e.touches[0], e.touches[1]);
+        lastScale = scale;
       }
+    }, { passive: false });
+
+    lightboxImg.addEventListener('touchmove', function (e) {
+      if (e.touches.length === 2 && startDistance > 0) {
+        e.preventDefault();
+        const newDistance = getDistance(e.touches[0], e.touches[1]);
+        const factor = newDistance / startDistance;
+        scale = clamp(lastScale * factor, 1, 4); // zoom from 1x to 4x
+        lightboxImg.style.transform = `scale(${scale})`;
+      }
+    }, { passive: false });
+
+    lightboxImg.addEventListener('touchend', function (e) {
+      if (e.touches.length < 2) {
+        startDistance = 0;
+      }
+    });
+
+    function getDistance(t1, t2) {
+      const dx = t1.clientX - t2.clientX;
+      const dy = t1.clientY - t2.clientY;
+      return Math.sqrt(dx * dx + dy * dy);
     }
 
-    function zoomIn(event) {
-      event.stopPropagation();
-      zoomLevel += 0.2;
-      document.getElementById('lightbox-img').style.transform = `scale(${zoomLevel})`;
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
     }
 
-    function zoomOut(event) {
-      event.stopPropagation();
-      if (zoomLevel > 0.4) zoomLevel -= 0.2;
-      document.getElementById('lightbox-img').style.transform = `scale(${zoomLevel})`;
-    }
+    // --------- MOUSE WHEEL ZOOM (DESKTOP) ---------
+    lightboxImg.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.1 : 0.1;
+      scale = clamp(scale + delta, 1, 4);
+      lightboxImg.style.transform = `scale(${scale})`;
+    });
   </script>
 </body>
 </html>
+
 
 
 
