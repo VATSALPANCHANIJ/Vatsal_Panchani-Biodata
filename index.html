@@ -415,7 +415,7 @@
             <section class="hero wow animate__animated animate__fadeInDown">
                 <div class="hero-frame">
                     <!-- main image -->
-                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNXpQOjIRYBIHaso1NqjFo0Vv5EvReLCCJov5IqccmRctfELY3xsvVLBGbwND8pSl_L4fHLeVSMOHUcmebNLhyYekBIH55GCmIjN4ylClW_Ysc8olp2X0v_Oxkt9gdeUytkXlhzEqRZsI9zFTVPJfN9GA=w651-h869-s-no-gm?authuser=0"
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczMtEm-13k3NY9PiJp8IP1OjS052KT7TU99dd08cfYKSTCPd1wYIHihxDhaVwWv55lzJ2MGRhvyZG8w63gVbAUMmf_B5i1AGzyhTmjpVm3D0dQFSe3KeZ3ubMj8H9Ry5-h9qiv_ZCWvJiIQn3Z1ZUa9m3A=w883-h869-s-no-gm?authuser=0"
                         alt="Panchani Vatsal Jaysukhbhai">
                 </div>
             </section>
@@ -444,7 +444,7 @@
 
                     <div class="name">
                         <span class="lang lang-en">Panchani Vatsal Jaysukhbhai</span>
-                        <span class="lang lang-gu" style="font-size: 20px; font-weight: 600;">પાંચાણી  વત્સલ
+                        <span class="lang lang-gu" style="font-size: 20px; font-weight: 600;">પાંચાણી વત્સલ
                             જયસુખભાઈ</span>
                     </div>
 
@@ -479,8 +479,8 @@
                             <span class="lang lang-gu">ઊંચાઈ &amp; વજન</span>
                         </div>
                         <div class="value">
-                            <span class="lang lang-en">6 ft, 55 kg</span>
-                            <span class="lang lang-gu">૬ ફૂટ, ૫૫ કિલો</span>
+                            <span class="lang lang-en">6 ft, 60 kg</span>
+                            <span class="lang lang-gu">૬ ફૂટ, ૬૦ કિલો</span>
                         </div>
                     </div>
 
@@ -651,7 +651,7 @@
                             </span>
                             <span class="lang lang-gu">
                                 એ-203 જય અંબે રેસીડેન્સી,<br>
-                                 આનંદ વાટિકા રેસીડેન્સી ની પાછળ , સુદામા ચોક,<br>
+                                આનંદ વાટિકા રેસીડેન્સી ની પાછળ , સુદામા ચોક,<br>
                                 મોટાવરાછા, સુરત.
                             </span>
                         </p>
@@ -691,8 +691,12 @@
                                 alt="Vatsal photo 1" onclick="openLightbox(this.src)">
                         </div>
                         <div class="photo-card">
-                            <img src="https://lh3.googleusercontent.com/pw/AP1GczPwtx1gqRPULyOnweFKp3S92OQFYS1D7i8nOoiC1sXQmHFJ1Ds6O4uDtLDYxm4KyYayelTj86l6fgUt2M6GZywd4EpvRvqUCneilw3vFGVjfm1vb42QZy1WG6nPjadVlkX4RMg7mPH1dEaF-2lXaq0MIQ=w869-h869-s-no-gm?authuser=0"
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczO0pfisXDpLIC0huSNPM1_vMve1NxD7QVZU2J7nlOusCyqHY9jYzr9EsxISsHkK-6iPn3CaBsR3J2s0nEjMC_1ABlg7Z6Ol6FmsWEnK7JCnSVQ66jEvgyEV2DnWop3OTf4BtM6FLxBHjTyKcuxaWYqIXQ=w489-h869-s-no-gm?authuser=0"
                                 alt="Vatsal photo 2" onclick="openLightbox(this.src)">
+                        </div>
+                         <div class="photo-card">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczOJZ0BVP4--MtzvJk0JTM5jroZPp9YiurKo_arhrqyvrY0yIIjX7TlrT3iV2TAkSrcjjWd2ejezHzGkNfYd9-BSCuZueIr3l0bHGOs2vtmCQkcQerhkV4M72WInbiZ7C1QIeg9jlaRybNQsGYhrajeFMQ=w489-h869-s-no-gm?authuser=0"
+                                alt="V`atsal photo 2" onclick="openLightbox(this.src)">
                         </div>
                     </div>
                 </section>
@@ -705,92 +709,128 @@
         <img id="lightbox-img" src="" alt="Full view">
     </div>
 
+
+    <!-- FULLSCREEN LIGHTBOX -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Full view">
+    </div>
+
     <script>
         new WOW().init();
 
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
+        // LANGUAGE TOGGLE
+        function toggleLanguage(checkbox) {
+            const isGujarati = checkbox.checked;
+            document.documentElement.setAttribute('data-lang', isGujarati ? 'gu' : 'en');
+            const title = document.getElementById('langTitle');
+            title.textContent = isGujarati ? 'ગુજરાતી' : 'English';
+        }
 
-        let scale = 1;
-        let lastScale = 1;
-        let startDistance = 0;
+    </script>
+
+    <script>
+        /* ADVANCED LIGHTBOX: Pinch Zoom + Mouse Zoom + Drag/Pan */
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+
+        let scale = 1, lastScale = 1, startDistance = 0;
+        let posX = 0, posY = 0, lastPosX = 0, lastPosY = 0;
+        let isDragging = false;
 
         function openLightbox(src) {
             scale = 1;
             lastScale = 1;
-            startDistance = 0;
+            posX = posY = lastPosX = lastPosY = 0;
 
             lightboxImg.src = src;
-            lightboxImg.style.transform = 'scale(1)';
-            lightbox.style.display = 'flex';
+            updateTransform();
+            lightbox.style.display = "flex";
         }
 
         function closeLightbox() {
-            lightbox.style.display = 'none';
+            lightbox.style.display = "none";
         }
 
-        // --------- PINCH ZOOM (MOBILE) ---------
-        lightboxImg.addEventListener('touchstart', function (e) {
+        function updateTransform() {
+            lightboxImg.style.transform =
+                `translate(${posX}px, ${posY}px) scale(${scale})`;
+        }
+
+        /* ----- TOUCH EVENTS (MOBILE) ----- */
+        lightboxImg.addEventListener("touchstart", function (e) {
             if (e.touches.length === 2) {
                 e.preventDefault();
                 startDistance = getDistance(e.touches[0], e.touches[1]);
                 lastScale = scale;
+            } else if (e.touches.length === 1 && scale > 1) {
+                isDragging = true;
+                lastPosX = e.touches[0].clientX - posX;
+                lastPosY = e.touches[0].clientY - posY;
             }
         }, { passive: false });
 
-        lightboxImg.addEventListener('touchmove', function (e) {
+        lightboxImg.addEventListener("touchmove", function (e) {
             if (e.touches.length === 2 && startDistance > 0) {
                 e.preventDefault();
                 const newDistance = getDistance(e.touches[0], e.touches[1]);
-                const factor = newDistance / startDistance;
-                scale = clamp(lastScale * factor, 1, 4); // zoom from 1x to 4x
-                lightboxImg.style.transform = `scale(${scale})`;
+                scale = clamp((newDistance / startDistance) * lastScale, 1, 4);
+                updateTransform();
+            } else if (e.touches.length === 1 && isDragging && scale > 1) {
+                posX = e.touches[0].clientX - lastPosX;
+                posY = e.touches[0].clientY - lastPosY;
+                updateTransform();
             }
         }, { passive: false });
 
-        lightboxImg.addEventListener('touchend', function (e) {
-            if (e.touches.length < 2) {
-                startDistance = 0;
+        lightboxImg.addEventListener("touchend", () => {
+            isDragging = false;
+            startDistance = 0;
+        });
+
+        /* ----- MOUSE EVENTS (DESKTOP) ----- */
+        lightboxImg.addEventListener("mousedown", function (e) {
+            if (scale > 1) {
+                isDragging = true;
+                lastPosX = e.clientX - posX;
+                lastPosY = e.clientY - posY;
             }
         });
 
+        window.addEventListener("mousemove", function (e) {
+            if (isDragging) {
+                posX = e.clientX - lastPosX;
+                posY = e.clientY - lastPosY;
+                updateTransform();
+            }
+        });
+
+        window.addEventListener("mouseup", function () {
+            isDragging = false;
+        });
+
+        /* Mouse wheel zoom */
+        lightboxImg.addEventListener("wheel", function (e) {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.15 : 0.15;
+            scale = clamp(scale + delta, 1, 4);
+            updateTransform();
+        });
+
+        /* Helpers */
         function getDistance(t1, t2) {
-            const dx = t1.clientX - t2.clientX;
-            const dy = t1.clientY - t2.clientY;
-            return Math.sqrt(dx * dx + dy * dy);
+            return Math.sqrt(
+                Math.pow(t1.clientX - t2.clientX, 2) +
+                Math.pow(t1.clientY - t2.clientY, 2)
+            );
         }
 
         function clamp(value, min, max) {
-            return Math.min(Math.max(value, min), max);
+            return Math.max(min, Math.min(max, value));
         }
-
-        // --------- MOUSE WHEEL ZOOM (DESKTOP) ---------
-        lightboxImg.addEventListener('wheel', function (e) {
-            e.preventDefault();
-            const delta = e.deltaY > 0 ? -0.1 : 0.1;
-            scale = clamp(scale + delta, 1, 4);
-            lightboxImg.style.transform = `scale(${scale})`;
-        });
-    </script>
-
-    <script>
-        function toggleLanguage(checkbox) {
-            const isGujarati = checkbox.checked;
-            document.documentElement.setAttribute('data-lang', isGujarati ? 'gu' : 'en');
-
-            const title = document.getElementById('langTitle');
-            title.textContent = isGujarati ? 'ગુજરાતી' : 'English';
-        }
-    </script>
-    <!-- Disable Inspection  -->
-    <script>
-      document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
 
 
 </body>
 
 </html>
-
-
-
